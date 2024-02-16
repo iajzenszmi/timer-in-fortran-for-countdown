@@ -1,0 +1,42 @@
+Creating a Fortran program that counts down from an input time and then beeps three times when it reaches zero involves a few steps. Here's a simple example of how you can do it:
+
+    Get User Input: First, you'll need to ask the user for the countdown time.
+    Countdown: Implement a loop to count down from the specified time.
+    Beep When Countdown Ends: Once the countdown reaches zero, make the program beep three times.
+
+Here's a basic example of what this code might look like:
+
+fortran
+
+program countdown_timer
+    implicit none
+    integer :: input_time, i
+
+    ! Ask user for input time
+    print *, 'Enter countdown time in seconds:'
+    read(*, *) input_time
+
+    ! Countdown loop
+    do i = input_time, 1, -1
+        print *, 'Time left: ', i, ' seconds'
+        call sleep(1)  ! Sleep for 1 second
+    end do
+
+    ! Beeping after countdown ends
+    print *, 'Time is up!'
+    do i = 1, 3
+        call system('echo -e "\a"')  ! Beep command
+        call sleep(1)  ! Sleep for 1 second between beeps
+    end do
+
+    print *, 'Countdown and beeping complete.'
+end program countdown_timer
+
+This code does the following:
+
+    Takes an input in seconds from the user for the countdown.
+    Counts down from the input time to 1, pausing for one second between each count.
+    After the countdown reaches zero, it uses the system command to make a beep sound. The echo -e "\a" command is a simple way to generate a beep in many terminal environments. However, this may not work in all systems, and you might need a different method for generating a beep depending on your system's capabilities.
+    It pauses for one second between each beep.
+
+Keep in mind that this code is quite basic and might need to be adapted for your specific requirements and environment. The sleep and system commands are often available in Fortran compilers but can vary based on the system and compiler you are using.
