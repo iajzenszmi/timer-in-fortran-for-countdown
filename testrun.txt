@@ -1,0 +1,56 @@
+ian@ian-Latitude-E7440:~$ nano timeout.f
+ian@ian-Latitude-E7440:~$ f77 timeout.f -ffree-form -o timeout
+ian@ian-Latitude-E7440:~$ ./timeout
+ Enter countdown time in seconds:
+20
+ Time left:           20  seconds
+ Time left:           19  seconds
+ Time left:           18  seconds
+ Time left:           17  seconds
+ Time left:           16  seconds
+ Time left:           15  seconds
+ Time left:           14  seconds
+ Time left:           13  seconds
+ Time left:           12  seconds
+ Time left:           11  seconds
+ Time left:           10  seconds
+ Time left:            9  seconds
+ Time left:            8  seconds
+ Time left:            7  seconds
+ Time left:            6  seconds
+ Time left:            5  seconds
+ Time left:            4  seconds
+ Time left:            3  seconds
+ Time left:            2  seconds
+ Time left:            1  seconds
+ Time is up!
+-e 
+-e 
+-e 
+ Countdown and beeping complete.
+ian@ian-Latitude-E7440:~$ cat timeout.f
+program countdown_timer
+    implicit none
+    integer :: input_time, i
+
+    ! Ask user for input time
+    print *, 'Enter countdown time in seconds:'
+    read(*, *) input_time
+
+    ! Countdown loop
+    do i = input_time, 1, -1
+        print *, 'Time left: ', i, ' seconds'
+        call sleep(1)  ! Sleep for 1 second
+    end do
+
+    ! Beeping after countdown ends
+    print *, 'Time is up!'
+    do i = 1, 3
+        call system('echo -e "\a"')  ! Beep command
+        call sleep(1)  ! Sleep for 1 second between beeps
+    end do
+
+    print *, 'Countdown and beeping complete.'
+end program countdown_timer
+
+ian@ian-Latitude-E7440:~$ 
